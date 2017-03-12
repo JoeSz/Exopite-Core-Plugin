@@ -1,0 +1,199 @@
+/* General */
+body.wp-admin select {
+    /*height: 2em;*/
+}
+.cs-element .cs-pseudo-field {
+    vertical-align: middle;
+}
+.wp-color-result {
+    height: 25px;
+    margin-top: 1px;
+}
+.wp-color-result::after {
+    padding: 2px 6px;
+    height: 21px !important;
+}
+.cs-text-muted {
+    margin-bottom: 5px;
+    margin-top: 0;
+}
+.cs-separator {
+    height: 16px;
+}
+/* Advanced Typography */
+.cs-field-typography_advanced .chosen-container-single .chosen-single {
+    background: #fff;
+    padding: 0 5px;
+    height: 28px;
+    border: 1px solid #ddd;
+    border-radius: 0;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.07);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.07);
+}
+.cs-field-typography select,
+.cs-field-typography .chosen-container,
+.cs-field-typography_advanced select,
+.cs-field-typography_advanced .chosen-container{
+  margin-right: 5px;
+}
+.cs-field-typography .cs-typo-variant {
+  min-width: 90px;
+}
+.cs-field-typography_advanced input[type="text"] {
+    vertical-align: middle;
+}
+.cs-field-typography_advanced .small-input input[type="text"]{
+    width: 50px;
+    text-align: center;
+}
+.cs-divider {
+    width:100%;
+    display: block;
+    height: 3px;
+}
+.cs-font-preview {
+    padding: 10px;
+    border: 1px solid #e6e6e6;
+    color: #7b7b7b;
+    margin-top: 20px;
+    background-color: #fff;
+    font-size: 16px;
+}
+.cs-field-typography_advanced .cs-field-color_picker {
+  position: relative;
+}
+.cs-field-typography_advanced .cs-field-number:before {
+    content: "\f034";
+    position: absolute;
+    top: 2px;
+    left : 2px;
+    height: 25px;
+    width: 25px;
+    font-family: 'FontAwesome';
+    line-height: 2;
+    text-align:center;
+    background-color: #ededed;
+    display: block;
+}
+.cs-field-typography_advanced .cs-field-number.cs-font-height:before {
+    content: "\f07d";
+}
+.cs-typography-family, .cs-typography-variant {
+    padding-bottom: 3px !important;
+}
+@media only screen and (max-width: 782px) {
+    .cs-field-typography_advanced .small-input {
+        display:block;
+        width: 40%;
+        height: 28px;
+        margin: 3px 0;
+    }
+    .cs-field-typography_advanced .small-input input[type="text"],
+    .cs-field-typography_advanced .small-input input[type="number"] {
+        width: 100%;
+        padding: 0 0 0 15px;
+        height: 28px;
+    }
+}
+/* Slider */
+.cs-field-slider input {
+    display: inline-block;
+    width: 27%;
+}
+.cs-slider {
+    display: inline-block;
+    margin: 0 8% 0 0;
+    width: 64%;
+    vertical-align: super;
+}
+.cs-field-slider .ui-slider {
+    position: relative;
+    width: 100%;
+    height: 2px;
+    background: #E8E8E8;
+}
+.cs-field-slider .ui-slider-range {
+    background: #111;
+    height: 2px;
+}
+.cs-field-slider .ui-slider-handle {
+    height: 10px;
+    width: 10px;
+    background: #111;
+    position: absolute;
+    top: -4px;
+    border-radius: 100%;
+}
+input[data-slider] {
+    border: 1px solid #ddd;
+    border-radius: 0;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.07);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.07);
+    max-width: 40px;
+    text-align: center;
+}
+/* Shadow */
+.cs-field-shadow .cs-element {
+    width: 48%;
+}
+.shadow-preview-box {
+    width: 200px;
+    height: 45px;
+    background-color: #e7a61a;
+    top: 0px;
+    position: relative;
+    margin: 0 auto;
+}
+.preview-container {
+    width: 100%;
+    padding: 10px;
+    position: relative;
+}
+/* Color picker menu */
+.cs-field-color_picker_menu .cs-element {
+    width: 48%;
+}
+/* Border */
+.cs-field-border .cs-element {
+    width: 48%;
+}
+.border-preview-box {
+    top: 0px;
+    position: relative;
+    margin: 0 auto;
+    width: 200px;
+}
+/* Background with preview */
+.cs-field-background_preview .cs-preview {
+    height: 150px;
+    width: 150px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+/* ACE Editor */
+.cs-field-aceeditor > .ace-editor-wrapper {
+    position: relative;
+    width:100%;
+    height:600px;
+    border: 1px solid #ccc;
+}
+.cs-field-aceeditor .ace-editor-container {
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+}
+.ace-editor-wrapper > textarea {
+    opacity: 0;
+}
+.cs-field-slider .ui-slider-handle {
+    height: 20px;
+    width: 20px;
+    background: #111;
+    position: absolute;
+    top: -10px;
+    border-radius: 100%;
+}
