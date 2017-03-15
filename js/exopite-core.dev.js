@@ -255,8 +255,14 @@
 //https://www.kenneth-truyers.net/2013/04/27/javascript-namespaces-and-modules/
 //https://www.sitepoint.com/jquery-function-namespacing-plain-english/
 
-ExoPite = {
+Exopite = {
 
+    /*
+     * Returns a function, that, as long as it continues to be invoked, will not
+     * be triggered. The function will be called after it stops being called for
+     * N milliseconds. If `immediate` is passed, trigger the function on the
+     * leading edge, instead of the trailing.
+     */
     debounce: function( func, wait, immediate ) {
         var timeout;
         return function() {
@@ -271,6 +277,7 @@ ExoPite = {
         };
     },
 
+    // Source: https://gist.github.com/killersean/6742f98122d1207cf3bd
     throttle: function( callback, limit, callingEvent ) {
         var wait = false;
         return function() {
@@ -285,6 +292,7 @@ ExoPite = {
         };
     },
 
+    // stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport
     isElementInViewport: function(el) {
         //special bonus for those using jQuery
         if (typeof jQuery === "function" && el instanceof jQuery) {
@@ -306,80 +314,6 @@ ExoPite = {
         else {
             location.hash = link;
         }
-    },
-
-    exist: function() {
-        return true;
-    },
-
-    test: function( who ) {
-        console.log( 'test called by ' + who );
     }
 
-}
-
-// Returns a function, that, as long as it continues to be invoked, will not
-// be triggered. The function will be called after it stops being called for
-// N milliseconds. If `immediate` is passed, trigger the function on the
-// leading edge, instead of the trailing.
-
-if ( typeof debounce != 'function' ) {
-    var debounce = function(func, wait, immediate) {
-        var timeout;
-        return function() {
-            var context = this, args = arguments;
-            var later = function() {
-                timeout = null;
-                if (!immediate) func.apply(context, args);
-            };
-            if (immediate && !timeout) func.apply(context, args);
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-}
-
-// Source: https://gist.github.com/killersean/6742f98122d1207cf3bd
-if ( typeof throttle != 'function' ) {
-    function throttle(callback, limit, callingEvent) {
-        var wait = false;
-        return function() {
-            if ( wait ) {
-                return;
-            }
-            callback.call(undefined, callingEvent);
-            wait = true;
-            setTimeout(function() {
-                wait = false;
-            }, limit);
-        };
-    }
-}
-
-// stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport
-if ( typeof isElementInViewport != 'function' ) {
-    function isElementInViewport ( el ) {
-        //special bonus for those using jQuery
-        if ( typeof jQuery === "function" && el instanceof jQuery ) {
-            el = el[0];
-        }
-        var rect = el.getBoundingClientRect();
-        return (
-            rect.bottom >= 0 &&
-            rect.right >= 0 &&
-            rect.top <= ( window.innerHeight || document.documentElement.clientHeight ) &&
-            rect.left <= ( window.innerWidth || document.documentElement.clientWidth )
-        );
-    }
-}
-
-if ( typeof changeBrowserUrl != 'function' ) {
-    var changeBrowserUrl = function( link ) {
-        if( history.pushState ) {
-            window.history.pushState({path:link},'',link);
-        }
-        else {
-            location.hash = link;
-        }
-    }
-}
+};
