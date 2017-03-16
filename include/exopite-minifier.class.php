@@ -232,4 +232,22 @@ class Exopite_Minifier {
         return $buffer;
     }
 
+    public static function minify_html( $buffer ) {
+        return preg_replace(array(
+            '/<!--(.*?)-->/s', // delete HTML comments
+            '@\/\*(.*?)\*\/@s', // delete JavaScript comments
+            /* Fix HTML */
+            '/\>[^\S ]+/s',  // strip whitespaces after tags, except space
+            '/[^\S ]+\</s',  // strip whitespaces before tags, except space
+            '/\>\s+\</',    // strip whitespaces between tags
+        ), array(
+            '', // delete HTML comments
+            '', // delete JavaScript comments
+            /* Fix HTML */
+            '>',  // strip whitespaces after tags, except space
+            '<',  // strip whitespaces before tags, except space
+            '><',   // strip whitespaces between tags
+        ), $buffer);
+    }
+
 }
