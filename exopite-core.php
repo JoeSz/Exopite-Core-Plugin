@@ -74,8 +74,8 @@ if ( ! function_exists( 'load_exopite_core_scripts' ) ) {
              *
              * https://www.doitwithwp.com/enqueue-scripts-styles-automatic-versioning/
              */
-            $core_js_url  = plugin_dir_url( __FILE__ ) . 'js/exopite-core.js';
-            $core_js_path = plugin_dir_path( __FILE__ ) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'exopite-core.js';
+            $core_js_url  = EXOPITE_CORE_URL . 'js/exopite-core.min.js';
+            $core_js_path =  join( DIRECTORY_SEPARATOR, array( EXOPITE_CORE_PATH, 'js', 'exopite-core.min.js' ) );
 
             // Exopite core scripts (debounce, throttle, filter & action hooks)
             wp_enqueue_script( 'exopite-core-js', $core_js_url, array(), filemtime( $core_js_path ), true );
@@ -124,11 +124,27 @@ if ( ! function_exists( 'load_exopite_core_styles' ) ) {
             wp_enqueue_style( 'font-awesome-470' );
         }
 
+        load_exopite_core_scripts();
+
     }
 }
 
 if ( ! function_exists( 'exopite_core' ) ) {
     function exopite_core() {
+
+        /**
+         * Initialize custom templater
+         */
+        if( ! class_exists( 'Exopite_Template' ) ) {
+            require_once join( DIRECTORY_SEPARATOR, array( EXOPITE_CORE_PATH, 'include', 'exopite-template.class.php' ) );
+        }
+
+        /**
+         * Initialize minifier
+         */
+        if( ! class_exists( 'Exopite_Minifier' ) ) {
+            require_once join( DIRECTORY_SEPARATOR, array( EXOPITE_CORE_PATH, 'include', 'exopite-minifier.class.php' ) );
+        }
 
         add_action( 'wp_enqueue_scripts', 'load_exopite_core_scripts' );
         add_action( 'wp_enqueue_scripts', 'load_exopite_core_styles' );
@@ -136,21 +152,29 @@ if ( ! function_exists( 'exopite_core' ) ) {
 
         if ( is_admin() ) {
 
+            /**
+             * A custom update checker for WordPress plugins.
+             *
+             * Useful if you don't want to host your project
+             * in the official WP repository, but would still like it to support automatic updates.
+             * Despite the name, it also works with themes.
+             *
+             * @link http://w-shadow.com/blog/2011/06/02/automatic-updates-for-commercial-themes/
+             * @link https://github.com/YahnisElsts/plugin-update-checker
+             * @link https://github.com/YahnisElsts/wp-update-server
+             */
+            if( ! class_exists( 'Puc_v4_Autoloader' ) ) {
+                require_once join( DIRECTORY_SEPARATOR, array( EXOPITE_CORE_PATH, 'vendor', 'plugin-update-checker', 'plugin-update-checker.php' ) );
+            }
+
             require_once( plugin_dir_path( __FILE__ ) . '/vendor/cs-framework/cs-framework-exopite.php' );
             require_once( plugin_dir_path( __FILE__ ) . '/vendor/duplicate-posts-pages.php' );
             require_once( plugin_dir_path( __FILE__ ) . '/vendor/nine3-clone-widgets.php' );
 
         } else {
 
-            if ( ! is_admin() ) add_action( 'wp_enqueue_scripts', 'load_exopite_core_scripts_frontend_only' );
-            if ( ! is_admin() ) add_action( 'wp_enqueue_scripts', 'load_exopite_core_styles_frontend_only' );
-
-            /**
-             * Initialize custom templater
-             */
-            if( ! class_exists( 'Exopite_Template' ) ) {
-                require join( DIRECTORY_SEPARATOR, array( EXOPITE_CORE_PATH, 'includes', 'exopite-template.class.php' ) );
-            }
+            add_action( 'wp_enqueue_scripts', 'load_exopite_core_scripts_frontend_only' );
+            add_action( 'wp_enqueue_scripts', 'load_exopite_core_styles_frontend_only' );
 
         }
 
