@@ -6,14 +6,14 @@
 // ===============================================================================================
 
 $settings           = array(
-    /*
-  'menu_title'      => 'Framework',
+
+  'menu_title'      => 'Exopite Plugins',
   'menu_type'       => 'plugins', // menu, submenu, options, theme, etc.
   'menu_slug'       => 'cs-framework',
   'ajax_save'       => false,
   'show_reset_all'  => false,
-  'framework_title' => 'Codestar Framework <small>by Codestar</small>',
-  */
+  'framework_title' => 'Exopite - Plugins <small style="color: #999;">by <a target="_blank" href="http://joe.szalai.org">joe.szalai.org</a></small>',
+
 );
 
 // ===============================================================================================
@@ -22,6 +22,26 @@ $settings           = array(
 // -----------------------------------------------------------------------------------------------
 // ===============================================================================================
 $options        = array();
+
+$options[]      = array(
+  'name'        => 'overwiew',
+  'title'       => 'Overview',
+  'icon'        => 'fa fa-star',
+
+  // begin: fields
+  'fields'      => array(
+
+    // begin: a field
+    array(
+      'type'    => 'notice',
+      'class'   => 'default',
+      'content' => __( 'You can manage Exopite plugins options here.', 'exopite-core' ),
+    ),
+    // end: a field
+
+  ), // end: fields
+
+);
 
 // ----------------------------------------
 // a option section for options overview  -
@@ -2422,4 +2442,6 @@ $options[]   = array(
   )
 );
 */
-//CSFramework::instance( $settings, $options );
+$active_theme = wp_get_theme();
+$exopite_theme_active = ( 'exopite' === esc_html( $active_theme->get( 'TextDomain' ) ) );
+if ( $exopite_theme_active ) CSFramework::instance( $settings, $options );

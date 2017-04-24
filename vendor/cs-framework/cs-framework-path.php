@@ -9,8 +9,7 @@
  */
 
 defined( 'CS_VERSION' )    or  define( 'CS_VERSION',    '1.0.1' );
-defined( 'CS_OPTION' )     or  define( 'CS_OPTION',     'exopite_options' );
-//defined( 'CS_OPTION' )     or  define( 'CS_OPTION',     '_cs_options' );
+defined( 'CS_OPTION' )     or  define( 'CS_OPTION',     '_cs_options' );
 defined( 'CS_CUSTOMIZE' )  or  define( 'CS_CUSTOMIZE',  '_cs_customize_options' );
 
 /**
