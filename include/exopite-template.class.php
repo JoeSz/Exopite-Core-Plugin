@@ -4,7 +4,7 @@
  *
  * Filename can be an actual file name or a link with a file name.
  *
- * Change -if exist- [#variable] or %%VARIABLE%% in template file based on
+ * Change -if exist- [#variable], %%VARIABLE%%, {$variable} or {{variable}} in template file based on
  * the given $variables_array and optionally remove HTML comments even munltiline ones.
  * It will also remove not existing [#variable] placeholders.
  *
@@ -83,7 +83,7 @@ class Exopite_Template {
     public static function replace_variables_in_template( $template, $variables_array ) {
         foreach ( $variables_array as $name => $value ) {
             $template = str_replace(
-                array( '[#' . $name . ']', '%\%' . strtoupper( $name ) . '%%', '{$' . $name . '}', '{{' . $name . '}}' ),
+                array( '[#' . $name . ']', '%%' . strtoupper( $name ) . '%%', '{$' . $name . '}', '{{' . $name . '}}' ),
                 array( $value, $value, $value, $value ),
                 $template
             );
@@ -117,6 +117,7 @@ class Exopite_Template {
              * This function assume you are using under Wordpress.
              * Otherwise error message style will be not displayed correctly!
              */
+            $retVal = '';
             if ( self::$display_errors ) {
                 $retVal = '<div class="alert alert-danger">
                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
