@@ -197,3 +197,6 @@ input[data-slider] {
     top: -10px;
     border-radius: 100%;
 }
+.cs-section .cs-section-title h3 {
+    cursor: pointer;
+}
