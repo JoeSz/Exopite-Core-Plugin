@@ -1,5 +1,69 @@
 jQuery( document ).ready(function() {
 
+    jQuery('<input id="searchbox" type="text" placeholder="Search" />').insertAfter('.cs-header h1');
+    jQuery('#searchbox').css('margin-left', '30px');
+    jQuery.expr[':'].Contains = function(a, i, m) {
+      return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+    };
+
+    jQuery('#searchbox').on('keyup', function() {
+      var w = jQuery(this).val();
+      if (w) {
+        jQuery('.cs-body').addClass('cs-show-all');
+        jQuery('.cs-title h4').closest('.cs-element').not('.hidden').hide();
+        jQuery('.cs-field-notice').hide();
+        jQuery('.cs-title h4:Contains('+w+')').closest('.cs-element').not('.hidden').show();
+      } else {
+        jQuery('.cs-body').removeClass('cs-show-all');
+        jQuery('.cs-title h4').closest('.cs-element').not('.hidden').show();
+        jQuery('.cs-field-notice').show();
+      }
+    });
+
+    jQuery( '.cs-section .cs-section-title h3' ).on( 'click', function() {
+
+        // Clear search
+        jQuery('#searchbox').val( '' );
+
+        //Get clicked element
+        var tabSection = jQuery( this ).closest('.cs-section').attr('id');
+        tabSection = tabSection.replace( 'cs-tab-', '' );
+
+        // Deactivate all first
+        jQuery( '.cs-section-active' ).removeClass( 'cs-section-active' );
+        jQuery( '.cs-tab-active' ).removeClass( 'cs-tab-active' );
+        jQuery( '.cs-section' ).hide();
+        jQuery( '.cs-sub ul' ).hide();
+
+        // Then activate clicked section
+        jQuery( 'a[data-section="' + tabSection + '"]' ).addClass( 'cs-section-active' );
+        jQuery( '#cs-tab-' + tabSection ).show();
+
+        // If subsection, activate the "main" tab too
+        if ( tabSection.match(/sub_section/) ) {
+            var $mainTab = jQuery( '.cs-section-active' ).closest( '.cs-sub' );
+            $mainTab.addClass( 'cs-tab-active' );
+            $mainTab.find( 'ul' ).show();
+        }
+
+        // Restore tab view
+        jQuery('.cs-body').removeClass('cs-show-all');
+        jQuery('.cs-title h4').closest('.cs-element').not('.hidden').show();
+        jQuery( '.cs-field-notice' ).show();
+
+        // Scroll to top
+        setTimeout(function(){
+
+            var top = jQuery( '#wpbody' ).offset().top - jQuery( '#wpadminbar' ).height();
+
+            jQuery('html, body').animate({
+                scrollTop: top
+            }, 200);
+
+        }, 200);
+
+    });
+
     // Font field
     jQuery( '.cs_font_field' ).each(function() {
         var parentName = jQuery( this ).attr( 'data-id' );
@@ -26,14 +90,14 @@ jQuery( document ).ready(function() {
             if ( ! font) return;
             var fontWeightStyle = calculateFontWeight( fontWeight.find(':selected').text() );
             // Generate font loading html
-            var href= 'http://fonts.googleapis.com/css?family=' + font + ':' + fontWeightStyle.fontWeightValue;
+            var href= '//fonts.googleapis.com/css?family=' + font + ':' + fontWeightStyle.fontWeightValue;
             var html = '<link href="' + href + '" class="cs-font-preview-' + parentName + '" rel="stylesheet" type="text/css" />';
 
             if ( jQuery( '.cs-font-preview-' + parentName ).length > 0 ) {
                 jQuery( '.cs-font-preview-' + parentName ).attr( 'href', href ).load();
             } else {
                 jQuery('head').append( html ).load();
-            };
+            }
 
             // Update preiew
             preview.css( 'font-family', font ).css( 'font-weight', fontWeightStyle.fontWeightValue ).css( 'font-style', fontWeightStyle.fontStyleValue );
@@ -151,7 +215,7 @@ jQuery( document ).ready(function() {
             } else {
                 $imagePreview.css('background-image', '');
                 $imagePreviewContainer.addClass('hidden');
-            };
+            }
         });
 
     });
