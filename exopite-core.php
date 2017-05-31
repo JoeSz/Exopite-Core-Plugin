@@ -165,6 +165,15 @@ if ( ! function_exists( 'exopite_core' ) ) {
              */
             if( ! class_exists( 'Puc_v4_Autoloader' ) ) {
                 require_once join( DIRECTORY_SEPARATOR, array( EXOPITE_CORE_PATH, 'vendor', 'plugin-update-checker', 'plugin-update-checker.php' ) );
+
+                // Update
+                $MyUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+                    'http://update.szalai.org/?action=get_metadata&slug=exopite-core', //Metadata URL.
+                    __FILE__, //Full path to the main plugin file.
+                    'exopite-core' //Plugin slug. Usually it's the same as the name of the directory.
+                );
+                // End Update
+
             }
 
             require_once( plugin_dir_path( __FILE__ ) . '/vendor/cs-framework/cs-framework-exopite.php' );
