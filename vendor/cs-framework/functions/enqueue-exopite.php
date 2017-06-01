@@ -7,7 +7,11 @@
  * @version 1.0.0
  *
  */
-function cs_admin_enqueue_scripts() {
+function cs_admin_enqueue_scripts( $current_page ) {
+
+    // Loading only if need to (theme options, pages, posts and any post types, beacuse of the meta boxes)
+    $allowed_pages = array( 'post.php', 'post-new.php', 'appearance_page_cs-framework' );
+    if( ! in_array( $current_page, $allowed_pages ) ) return;
 
     // admin utilities
     wp_enqueue_media();
@@ -36,10 +40,14 @@ function cs_admin_enqueue_scripts() {
     wp_enqueue_script( 'cs-framework', CS_URI .'/assets/js/cs-framework.js',  array( 'cs-plugins' ), '1.0.0', true );
     wp_enqueue_script( 'cs-extra-js', CS_URI .'/assets/js/cs-extra.js',  array( 'cs-plugins' ), '1.0.0', true );
 
-    // ace scripts
-    wp_enqueue_script( 'cs-vendor-ace', CS_URI .'/assets/js/vendor/ace.js', array(), '1.0.0', true );
-    wp_enqueue_script( 'cs-vendor-ace-mode', CS_URI .'/assets/js/vendor/mode-css.js', array( 'cs-vendor-ace' ), '1.0.0', true );
-    wp_enqueue_script( 'cs-vendor-ace-language_tools', CS_URI .'/assets/js/vendor/ext-language_tools.js', array( 'cs-vendor-ace' ), '1.0.0', true );
+    // Enqueue ACE scripts only in theme options
+    if( $current_page == 'appearance_page_cs-framework' ) {
+
+        // ace scripts
+        wp_enqueue_script( 'cs-vendor-ace', CS_URI .'/assets/js/vendor/ace.js', array(), '1.0.0', true );
+        wp_enqueue_script( 'cs-vendor-ace-mode', CS_URI .'/assets/js/vendor/mode-css.js', array( 'cs-vendor-ace' ), '1.0.0', true );
+        wp_enqueue_script( 'cs-vendor-ace-language_tools', CS_URI .'/assets/js/vendor/ext-language_tools.js', array( 'cs-vendor-ace' ), '1.0.0', true );
+    }
 
     wp_enqueue_script( 'cs-vendor-ace-load', CS_URI .'/assets/js/vendor/ace-load.js', array( 'cs-vendor-ace' ), '1.0.0', true );
 }
