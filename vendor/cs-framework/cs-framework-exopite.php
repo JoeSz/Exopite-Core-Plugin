@@ -38,7 +38,8 @@
  *
  */
 $active_theme = wp_get_theme();
-$exopite_theme_active = ( 'exopite' === esc_html( $active_theme->get( 'TextDomain' ) ) );
+
+$exopite_theme_active = ( strpos( esc_html( $active_theme->get( 'TextDomain' ) ), 'exopite' ) );
 if ( $exopite_theme_active ) {
     defined( 'CS_OPTION' ) or define( 'CS_OPTION', 'exopite_options' );
 } else {
