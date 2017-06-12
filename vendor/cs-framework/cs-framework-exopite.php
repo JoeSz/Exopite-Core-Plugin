@@ -39,18 +39,7 @@
  */
 $active_theme = wp_get_theme();
 
-$exopite_theme_active = ( strpos( esc_html( $active_theme->get( 'TextDomain' ) ), 'exopite' ) );
-if ( $exopite_theme_active ) {
-    defined( 'CS_OPTION' ) or define( 'CS_OPTION', 'exopite_options' );
-} else {
-    // If exopite theme is not active
-    /*
-     * Can be a problem if an outher theme is active which using CodeStar Framework.
-     * In this case, if exopite-core plugin if activated first, it will override theme options.
-     */
-    //defined( 'CS_OPTION' ) or define( 'CS_OPTION', 'exopite_plugins_options' );
-}
-
+defined( 'CS_OPTION' ) or define( 'CS_OPTION', 'exopite_options' );
 
 // ------------------------------------------------------------------------------------------------
 require_once plugin_dir_path( __FILE__ ) .'/cs-framework-path.php';
