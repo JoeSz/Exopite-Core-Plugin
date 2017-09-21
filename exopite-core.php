@@ -5,7 +5,7 @@
  * it is not enqueued multiple times.
  *
  * @link              http://joe.szalai.org
- * @since             1.0.1
+ * @since             20170921
  * @package           Exopite_Core
  *
  * @wordpress-plugin
