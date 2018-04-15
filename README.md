@@ -3,6 +3,7 @@ This is the core plugin for Exopite plugins and themes. Purpose to load scripts 
 
 # Changelog
 
+* 20180415 Update to Bootstrap 4.1.0
 * 20171202 Update to Bootstrap 4.0.0 beta 2
 * 20170921 Update to Bootstrap 4.0.0 beta
 * 1.0.1 Fix textdomain and options if child theme
