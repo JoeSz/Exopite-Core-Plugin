@@ -5,14 +5,14 @@
  * it is not enqueued multiple times.
  *
  * @link              http://joe.szalai.org
- * @since             20180415
+ * @since             20190217
  * @package           Exopite_Core
  *
  * @wordpress-plugin
  * Plugin Name:       Exopite Core
  * Plugin URI:        http://joe.szalai.org/exopite/core
  * Description:       This is the core plugin for Exopite plugins and themes. Purpose to load scripts and CodeStar option framework enhanced version, make sure they are not enqueued multiple times.
- * Version:           1.0.0
+ * Version:           20190217
  * Author:            Joe Szalai
  * Author URI:        http://joe.szalai.org
  * License:           GPL-3.0+
@@ -87,9 +87,15 @@ if ( ! function_exists( 'load_exopite_core_scripts' ) ) {
 if ( ! function_exists( 'load_exopite_core_scripts_frontend_only' ) ) {
     function load_exopite_core_scripts_frontend_only() {
 
-        wp_enqueue_script( 'jquery-popper-1140', 'http' . ($_SERVER['SERVER_PORT'] == 443 ? "s" : "") . '://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js', array( 'jquery' ), '1.14.0', true );
+        $exopite_options = get_option( 'exopite_options' );
 
-        wp_enqueue_script( 'bootstrap-41-js', 'http' . ($_SERVER['SERVER_PORT'] == 443 ? "s" : "") . "://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js", array( 'jquery', 'jquery-popper-1140' ), '4.1.0', true );
+        if ( ! isset( $exopite_options['exopite-seo-use_cdns'] ) || $exopite_options['exopite-seo-use_cdns'] ) {
+
+            wp_enqueue_script( 'jquery-popper-1147', 'http' . ($_SERVER['SERVER_PORT'] == 443 ? "s" : "") . '://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js', array( 'jquery' ), '1.14.7', true );
+
+            wp_enqueue_script( 'bootstrap-431-js', 'http' . ($_SERVER['SERVER_PORT'] == 443 ? "s" : "") . "://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js", array( 'jquery', 'jquery-popper-1147' ), '4.1.1', true );
+
+        }
 
     }
 }
@@ -97,18 +103,40 @@ if ( ! function_exists( 'load_exopite_core_scripts_frontend_only' ) ) {
 if ( ! function_exists( 'load_exopite_core_styles_frontend_only' ) ) {
     function load_exopite_core_styles_frontend_only() {
 
-        /**
-         * CDNs
-         *
-         * Get Bootstrap 4
-         */
-        wp_enqueue_style( 'bootstrap-41', 'http' . ($_SERVER['SERVER_PORT'] == 443 ? 's' : '' ) . '://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css', false, '4.1.0' );
+        $exopite_options = get_option( 'exopite_options' );
+
+        if ( ! isset( $exopite_options['exopite-seo-use_cdns'] ) || $exopite_options['exopite-seo-use_cdns'] ) {
+
+            /**
+             * CDNs
+             *
+             * Get Bootstrap 4
+             */
+            wp_enqueue_style( 'bootstrap-431', 'http' . ($_SERVER['SERVER_PORT'] == 443 ? 's' : '' ) . '://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css', false, '4.3.1' );
+
+        }
 
     }
 }
 
 if ( ! function_exists( 'load_exopite_core_styles' ) ) {
     function load_exopite_core_styles() {
+
+        $exopite_options = get_option( 'exopite_options' );
+
+        if ( ! isset( $exopite_options['exopite-seo-use_cdns'] ) || $exopite_options['exopite-seo-use_cdns'] ) {
+
+            wp_enqueue_style( 'font-awesome-470', 'http' . ($_SERVER['SERVER_PORT'] == 443 ? 's': '' ) . '://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', false, '470' );
+
+        }
+
+    }
+}
+
+if ( ! function_exists( 'load_exopite_core_styles_addmin' ) ) {
+    function load_exopite_core_styles_admin() {
+
+        $exopite_options = get_option( 'exopite_options' );
 
         wp_enqueue_style( 'font-awesome-470', 'http' . ($_SERVER['SERVER_PORT'] == 443 ? 's': '' ) . '://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', false, '470' );
 
@@ -136,7 +164,7 @@ if ( ! function_exists( 'exopite_core' ) ) {
 
         add_action( 'wp_enqueue_scripts', 'load_exopite_core_scripts' );
         add_action( 'wp_enqueue_scripts', 'load_exopite_core_styles' );
-        add_action( 'admin_enqueue_scripts', 'load_exopite_core_styles' );
+        add_action( 'admin_enqueue_scripts', 'load_exopite_core_styles_admin' );
 
         if ( is_admin() ) {
 
