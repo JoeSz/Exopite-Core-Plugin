@@ -12,7 +12,7 @@
  * Plugin Name:       Exopite Core
  * Plugin URI:        http://joe.szalai.org/exopite/core
  * Description:       This is the core plugin for Exopite plugins and themes. Purpose to load scripts and CodeStar option framework enhanced version, make sure they are not enqueued multiple times.
- * Version:           20190217
+ * Version:           20191112
  * Author:            Joe Szalai
  * Author URI:        http://joe.szalai.org
  * License:           GPL-3.0+
